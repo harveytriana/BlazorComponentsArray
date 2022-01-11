@@ -1,0 +1,35 @@
+﻿@page "/"
+
+<h3>Componets array sample</h3>
+<hr />
+<div style="display:inline-flex">
+    @for(int i = 0; i < 8; i++) {
+        string id = $"KEY-{i:000}";
+        <Box @ref="AddBox" Id=@id />
+    }
+</div>
+<!-- any action, demo -->
+<br />
+<span class="oi oi-cog" style="cursor:pointer;" @onclick="ChangeBoxColor" />
+<span>@echo</span>
+
+@code {
+    // components's collection
+    readonly List<Box> boxes = new();
+    // add to collection
+    Box AddBox { set => boxes.Add(value); }
+    // access
+    Box? GetElement(string id) => boxes.FirstOrDefault(x => x.Id == id);
+
+    // any action, demo
+    string echo = "« Click";
+
+    void ChangeBoxColor()
+    {
+        var id = $"KEY-{Random.Shared.Next(0, 8):000}";
+        GetElement(id)?.SetBackColor($"rgba({z},{z},{z},0.3)");
+        echo = " Component " + id;
+    }
+    int z => Random.Shared.Next(255);
+}
+

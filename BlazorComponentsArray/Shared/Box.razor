@@ -1,0 +1,18 @@
+﻿<div style="@Style"></div>
+
+@code {
+    [Parameter, EditorRequired] public string? Id { get; set; }
+    [Parameter] public string BackColor { get; set; } = "transparent";
+
+    string Style => $@"
+        background-color:{BackColor};
+        width:100px;height:100px;
+        margin:3px;
+        border:1px solid #C0C0C0;";
+
+    public void SetBackColor(string cssColor)
+    {
+        BackColor = cssColor;
+        StateHasChanged();
+    }
+}
